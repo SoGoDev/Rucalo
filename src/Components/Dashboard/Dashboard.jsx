@@ -9,9 +9,29 @@ class Dashboard extends Component {
             showModal:false
         }
         this.getInfo = this.getInfo.bind(this);
+        this.deleteData = this.deleteData.bind(this);
+    }
+    updateData(login){
+        
+    }
+    deleteData(login){
+        let data = this.state.data;
+        data.forEach((index,i) =>{
+            if(index.login === login){
+                data.splice(i,1);
+                console.log(data);
+            }
+        });
+        localStorage.setItem('DB',JSON.stringify(data));
+        this.setState({data:data});
     }
     getInfo(){
-        this.setState({data:JSON.parse(localStorage.getItem("DB"))});
+        
+        this.setState(
+            {
+                data:localStorage.getItem("DB") !== null ? JSON.parse(localStorage.getItem("DB")) :[]
+            }
+        );
     }
     componentWillMount(){
         this.getInfo();
@@ -31,8 +51,8 @@ class Dashboard extends Component {
                         </div>
                     </div>
                     <div className="controll_bt_card-Dash">    
-                        <div className="bt_info_card-Dash">Edit</div>
-                        <div className="bt_info_card-Dash">Delete</div>
+                        <div className="bt_info_card-Dash" onClick={()=>{ this.updateData(index.login)}}>Edit</div>
+                        <div className="bt_info_card-Dash" onClick={()=>{ this.deleteData(index.login)}}>Delete</div>
                     </div>
                 </div>
             )
