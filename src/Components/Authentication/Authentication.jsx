@@ -24,7 +24,7 @@ class Auth extends Component{
              if(DB !== null){
                 DB.forEach(element => {
                     if(element.login === state.login && element.password === state.password){
-                        this.setState({massege:'Wellcome '+element.firstName,doneLogIn:true});
+                        this.setState({massege:'Welcome '+element.firstName,doneLogIn:true});
                         setTimeout(()=>{
                             this.setState({doneLogIn:false});
                             this.props.history.push('/dashboard');
