@@ -6,10 +6,16 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom';
+import { connect } from 'react-redux'
+
 import Header from './Components/Header/Header';
+import MainLayout from './Components/MainLayout/MainLayout';
 import Auth from'./Components/Authentication/Authentication';
 import Registration from './Components/Registration/Registration';
 import Dashboard from './Components/Dashboard/Dashboard';
+
+
+
 
 class App extends Component {
   render() {
@@ -17,13 +23,16 @@ class App extends Component {
       <Router>
         <div>
           <Header/>
-          <Route exact path='/' component={Auth}/>
-          <Route path='/registration' component={Registration}/>
-          <Route path="/dashboard" component={Dashboard}/>
+          <Route path='/' component={MainLayout}/>
         </div>
       </Router>
     );
   }
 }
 
-export default App;
+function mapStateToProps (state) {
+  return {
+    
+  }
+}
+export default connect(mapStateToProps)(App)

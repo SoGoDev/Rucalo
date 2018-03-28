@@ -7,9 +7,6 @@ class Auth extends Component{
         this.state={
             login:props.login,
             password:props.password,
-            massege:'',
-            showToast:false,
-            doneLogIn:false
         }
         this.accessUser = this.accessUser.bind(this);
     }
@@ -53,8 +50,6 @@ class Auth extends Component{
     }
 
     render(){
-        let done = this.state.doneLogIn ? <div className = "done_popup_container"><div className="done_popup"><div>{this.state.massege}</div></div></div> : '';
-        let toast = this.state.showToast ?<div className = "toast">Invalid data!</div>:'';
         return(
             <div className="form_container-Auth">
                 <div className="form-Auth">
@@ -71,8 +66,6 @@ class Auth extends Component{
                         <div className="controll_bt-Auth" onClick={()=>{this.props.history.push('/registration')}}>Sign Up</div>
                     </div>
                 </div>
-                <div>{toast}</div>
-                <div>{done}</div>
             </div>    
         )
     }
