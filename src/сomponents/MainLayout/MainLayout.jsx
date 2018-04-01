@@ -1,10 +1,10 @@
 import React from 'react'
 
 
-const MainLayout = ({ component }) => {
+const MainLayout = (props) => {
     return (
         <div>
-            {component}
+            {props.children}
         </div>
     )
 }

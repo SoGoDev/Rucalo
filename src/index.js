@@ -1,15 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { render } from 'react-dom' ;
-import { createStore } from 'redux';
+import { createStore ,applyMiddleware, compose} from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
-import App from './App';
+import App from './container/App';
 import styleResert from './resert.css';
 import styleIndex from './index.css';
-import configureStore from './store/configureStore'
+import reducer from './reducer/index'
 
-const store = configureStore()
 
+const store = createStore(reducer);
+
+store.subscribe(()=>{
+    console.log(store.getState());
+})
 
 ReactDOM.render(
     <Provider store={store}>
