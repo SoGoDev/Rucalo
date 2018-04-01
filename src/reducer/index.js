@@ -10,21 +10,18 @@ const initialState = {
 
 })
 
-function cards (state = [],action){
+function cards (state = initialState,action){
     switch (action.type){
         case 'ADD_CARD': 
-            state.card.push(action.text);
-            return state ;
+            return Object.assign({},state,state.card.push(action.info));
         default:
             return state
     }
 }
 
 function modal (state = initialState ,action){
-    console.log(state);
     switch (action.type){
         case 'IS_VISIBLE':
-            console.log(action.status)
             return Object.assign({},state,{isVisible:action.status});
         default:
             return state

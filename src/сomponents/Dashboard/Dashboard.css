@@ -35,3 +35,19 @@
 .bt_add-Dash:hover{
     cursor: pointer;    
 }
+.bt_control-Dash{
+    display: flex;
+    color: #fff;
+    background-color: #0091EA;
+    padding: 10px;
+    width: 20%;
+    text-align: center;
+}
+.bt_control-Dash:hover{
+    cursor: pointer;
+}
+.bt_container_controll-Dash{
+    margin-top:5px ;
+    display: flex;
+    justify-content: space-evenly;
+}

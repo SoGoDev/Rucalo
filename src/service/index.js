@@ -8,6 +8,12 @@ export const checkInput = function(str){
 
                 }
             })
+        }else{
+            if(validString(str.description)&&validString(str.password)){
+                resolve(str);
+            }else{
+                reject('Invalid data');
+            }
         }
         
     });

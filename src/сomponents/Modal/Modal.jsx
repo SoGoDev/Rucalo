@@ -5,7 +5,6 @@ import  './Modal.css';
 
  class Modal extends Component{
     render(){
-        // const { message } = this.props
         return(
             <div>
                 <div className = "popup_container">

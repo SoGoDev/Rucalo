@@ -1,7 +1,7 @@
 
-export const addCard = text => ({
+export const addCard = info => ({
     type: 'ADD_CARD',
-    text
+    info
 });
 export const isVisible = (status)=>({
     type: 'IS_VISIBLE',
