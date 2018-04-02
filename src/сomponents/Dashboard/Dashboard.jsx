@@ -8,7 +8,7 @@ import  './Dashboard.css';
 import Modal from '../Modal/Modal';
 import Card from '../Card/Card';
 
-import { isVisible , addCard } from '../../actions/index'
+import { isVisible , addCard,setUser } from '../../actions/index'
 import { checkInput } from '../../service/index'
 
 class Dashboard extends Component {
@@ -40,7 +40,14 @@ class Dashboard extends Component {
             // console.log(err);
         })
     }
-    
+    componentWillMount(){
+        if(localStorage.getItem('isLog')){
+            let log = JSON.parse(localStorage.getItem('isLog'));
+            this.props.setUser(log.user);
+        }else{
+            this.props.history.push('/');
+        }
+    }
     showModal(){
         let id = parseInt((Math.random()*10000000000),16);
         if(this.props.status){
@@ -114,7 +121,8 @@ export default connect(state =>({
 }),
 {
     isVisible,
-    addCard
+    addCard,
+    setUser
 }
     
 )(Dashboard);

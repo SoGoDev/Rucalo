@@ -24,6 +24,10 @@ class Auth extends Component{
             findInLocal(data.description).then(data=>{
                 this.props.initState(JSON.parse(data).cards);
                 this.props.setUser(str.description);
+                let isLog={
+                    user:str.description
+                }
+                localStorage.setItem('isLog',JSON.stringify(isLog));
                 this.props.history.push('/dash');
             }).catch(err=>{
                 this.props.setMessage("Incorrect data");
