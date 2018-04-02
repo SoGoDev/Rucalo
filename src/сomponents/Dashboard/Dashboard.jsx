@@ -32,11 +32,8 @@ class Dashboard extends Component {
             str.id = id;
             this.props.addCard(data);
             let userCards = JSON.parse(localStorage.getItem(this.props.user));
-            // console.log(this.props.user);
-            // console.log(userCards);
-            console.log(userCards);
-            // console.log(userCards);
-            // localStorage.setItem(this.props.user,JSON.stringify(userCards));
+            userCards.cards.push(data);
+            localStorage.setItem(this.props.user,JSON.stringify(userCards));
             this.props.isVisible(false);
         })
         .catch(err=>{
