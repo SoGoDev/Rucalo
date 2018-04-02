@@ -32,7 +32,7 @@ class Dashboard extends Component {
             str.id = id;
             this.props.addCard(data);
             // let userCards = JSON.parse(localStorage.getItem(this.props.user));
-            console.log(this.props.user);
+            // console.log(this.props.user);
             // console.log(userCards);
             // userCards.cards.push(data);
             // console.log(userCards);
@@ -96,8 +96,8 @@ class Dashboard extends Component {
         return(
             <div>
                 <div className="dashboard_container-Dash">
-                    {this.props.card.legth>1?
-                    this.props.card.legth.map(index=>{
+                    {this.props.card.length!=0?
+                    this.props.card.map(index=>{
                         return <Card key={index.id} desciption={index.description} password={index.password} id={index.id}/>
                     }):null}
                     <div className="bt_add-Dash" onClick={()=>{this.props.isVisible(true)}}>+</div>
