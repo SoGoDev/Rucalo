@@ -1,5 +1,5 @@
 import React from 'react'
-import { updateCard }from '../../actions/index'
+import { updateCard ,deleteCard}from '../../actions/index'
 import { connect } from 'react-redux';
 
 import './Card.css'
@@ -9,6 +9,7 @@ import './Card.css'
 
 function Card (props){
     let password = props.password;
+    let id = props.id;
     return(
 
         <div className="info_card-Dash" key={props.id}>
@@ -23,13 +24,13 @@ function Card (props){
                 </div>
             </div>
             <div className="controll_bt_card-Dash">    
-                <div className="bt_info_card-Dash" onClick={()=>{this.props.updateCard(props.id,password)}}>Save</div>
-                <div className="bt_info_card-Dash" >Delete</div>
+                <div className="bt_info_card-Dash" onClick={()=>{props.updateCard(id,password)}}>Save</div>
+                <div className="bt_info_card-Dash" onClick={()=>{props.deleteCard(id)}}>Delete</div>
             </div>
          </div>
     )
 }
 
 export default connect(state=>({}),
-{updateCard}
+{updateCard , deleteCard}
 )(Card);

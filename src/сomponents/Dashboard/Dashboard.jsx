@@ -1,7 +1,5 @@
 import React ,{Component} from 'react';
-import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
 import imgShowPass from './show_hide_password.svg';
 
 
@@ -10,7 +8,7 @@ import  './Dashboard.css';
 import Modal from '../Modal/Modal';
 import Card from '../Card/Card';
 
-import { isVisible , addCard} from '../../actions/index'
+import { isVisible , addCard } from '../../actions/index'
 import { checkInput } from '../../service/index'
 
 class Dashboard extends Component {
@@ -29,11 +27,16 @@ class Dashboard extends Component {
             description :this.state.description,
             password : this.state.password
         }
-        console.log(str);
         checkInput(str)
         .then(data=>{
             str.id = id;
             this.props.addCard(data);
+            // let userCards = JSON.parse(localStorage.getItem(this.props.user));
+            console.log(this.props.user);
+            // console.log(userCards);
+            // userCards.cards.push(data);
+            // console.log(userCards);
+            // localStorage.setItem(this.props.user,JSON.stringify(userCards));
             this.props.isVisible(false);
         })
         .catch(err=>{
@@ -93,9 +96,10 @@ class Dashboard extends Component {
         return(
             <div>
                 <div className="dashboard_container-Dash">
-                    {this.props.card.map(index=>{
-                        return <Card key={index} desciption={index.description} password={index.password} id={index.id}/>
-                    })}
+                    {this.props.card.legth>1?
+                    this.props.card.legth.map(index=>{
+                        return <Card key={index.id} desciption={index.description} password={index.password} id={index.id}/>
+                    }):null}
                     <div className="bt_add-Dash" onClick={()=>{this.props.isVisible(true)}}>+</div>
                 </div>
                 {this.showModal()}
@@ -107,7 +111,8 @@ class Dashboard extends Component {
   
 export default connect(state =>({
     status: state.modal.isVisible,
-    card: state.cards.card
+    card: state.cards.card,
+    user:state.user.user
 }),
 {
     isVisible,

@@ -1,37 +1,45 @@
 import React,{ Component } from 'react'
-import PropTypes from 'prop-types'
-import styleAuth from './Authentication.css';
+import { connect } from 'react-redux';
+import { checkInput , findInLocal } from '../../service';
+import { initState ,setMessage ,openToast,setUser} from '../../actions/index';
+import Toast from '../Toast/Toast';
+import './Authentication.css';
 
 class Auth extends Component{
     constructor(){
-        this.state ={
-            login:propTypes.string.login,
-            password:propTypes.string.password
+        super();
+        this.state={
+            login:'',
+            password:''
         }
+        this.accessUser = this.accessUser.bind(this);
+        this.showToast =this.showToast.bind(this);
     }
     accessUser(){
-        let state = this.state
-        if(
-            (state.login !== undefined && state.login.replace(/ /g,'') !== '')
-            && 
-            (state.password !== undefined && state.password.replace(/ /g,'') !== '')
-        ){
-             let DB = JSON.parse(localStorage.getItem("DB"));
-             if(DB !== null){
-                DB.forEach(element => {
-                    if(element.login === state.login && element.password === state.password){
-                       
-                    }else{
-                        
-                    }
-                });
-             }else{
-                
-             }
-        }else{
-            
+        let str ={
+            description : this.state.login,
+            password : this.state.password
         }
-       
+        checkInput(str).then(data=>{
+            findInLocal(data.description).then(data=>{
+                this.props.initState(data);
+                this.props.setUser(str.description);
+                this.props.history.push('/dash');
+            }).catch(err=>{
+                this.props.setMessage("Incorrect data");
+                this.props.openToast(true);
+            })
+        }).catch(err=>{
+            this.props.setMessage("Invalid data");
+            this.props.openToast(true);
+        });
+    }
+    showToast(){
+        if(this.props.status){
+            return <Toast/>
+        }else{
+            return null
+        }
     }
     render(){
         return(
@@ -39,24 +47,31 @@ class Auth extends Component{
                 <form className="form-Auth">
                     <div className="input_form_group-Auth">
                         <label>Login</label>
-                        <input type="text" />
+                        <input type="text" onChange={(e)=>{this.setState({login:e.target.value})}}/>
                     </div>
                     <div className="input_form_group-Auth">
                         <label>Password</label>
-                        <input type="password"/>
+                        <input type="password" onChange={(e)=>{this.setState({password:e.target.value})}}/>
                     </div>
                     <div className="controll_panel-Auth">
                         <div className="controll_bt-Auth" onClick={this.accessUser}>Log In</div>
                         <div className="controll_bt-Auth" onClick={()=>{this.props.history.push('/registration')}}>Sign Up</div>
                     </div>
                 </form>
+                {this.showToast()}
             </div>    
         )
     }
 }
 
-export default (null,{login})(Auth)
-Auth.propTypes = {
-    login: PropTypes.string.login,
-    password: PropTypes.string.password
-  }
+export default connect(state=>({
+    status : state.toast.isToast,
+    message: state.toast.setMessage,
+}),
+    {
+        initState,
+        setMessage,
+        openToast,
+        setUser
+    })(Auth)
+
