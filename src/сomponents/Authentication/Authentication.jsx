@@ -22,7 +22,7 @@ class Auth extends Component{
         }
         checkInput(str).then(data=>{
             findInLocal(data.description).then(data=>{
-                this.props.initState(data);
+                this.props.initState(JSON.parse(data).cards);
                 this.props.setUser(str.description);
                 this.props.history.push('/dash');
             }).catch(err=>{

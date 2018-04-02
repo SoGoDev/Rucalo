@@ -31,10 +31,10 @@ class Dashboard extends Component {
         .then(data=>{
             str.id = id;
             this.props.addCard(data);
-            // let userCards = JSON.parse(localStorage.getItem(this.props.user));
+            let userCards = JSON.parse(localStorage.getItem(this.props.user));
             // console.log(this.props.user);
             // console.log(userCards);
-            // userCards.cards.push(data);
+            console.log(userCards);
             // console.log(userCards);
             // localStorage.setItem(this.props.user,JSON.stringify(userCards));
             this.props.isVisible(false);
@@ -96,7 +96,8 @@ class Dashboard extends Component {
         return(
             <div>
                 <div className="dashboard_container-Dash">
-                    {this.props.card.length!=0?
+                    {   
+                        this.props.card.length!=0?
                     this.props.card.map(index=>{
                         return <Card key={index.id} desciption={index.description} password={index.password} id={index.id}/>
                     }):null}
