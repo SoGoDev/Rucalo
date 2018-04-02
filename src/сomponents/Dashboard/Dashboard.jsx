@@ -2,6 +2,8 @@ import React ,{Component} from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
+import imgShowPass from './show_hide_password.svg';
+
 
 import  './Dashboard.css';
 
@@ -14,11 +16,23 @@ import { checkInput } from '../../service/index'
 class Dashboard extends Component {
     constructor(){
         super();
+        this.state={
+            isShow:'password',
+            description :'',
+            password:''
+            
+        }
      this.isValid = this.isValid.bind(this);
     }
-    isValid(str){
+    isValid(id){
+        let str ={
+            description :this.state.description,
+            password : this.state.password
+        }
+        console.log(str);
         checkInput(str)
         .then(data=>{
+            str.id = id;
             this.props.addCard(data);
             this.props.isVisible(false);
         })
@@ -28,34 +42,44 @@ class Dashboard extends Component {
     }
     
     showModal(){
-        let str = {
-            description : '',
-            password : ''
-        }
+        let id = parseInt((Math.random()*10000000000),16);
         if(this.props.status){
             return(
                 <Modal>
-                    <form className="">
-                        <div className="">
+                    <form className="form">
+                        <div>id</div>
+                        <div>{id}</div>
+                        <div className="input_form_group">
                             <label>Description</label>
                             <input 
                                 type="text" 
                                 onChange={
-                                    (e)=>{ str.description = e.target.value }
+                                    (e)=>{ this.setState({description: e.target.value })}
                                 }
                             />
                         </div>
-                        <div className="">
+                        <div className="input_form_group">
                             <label>Password</label>
-                            <input 
-                                type="password"
-                                onChange={
-                                    (e)=>{ str.password = e.target.value }
-                                }
-                            />
+                            <div className="group_pass">
+                                <input 
+                                    type={this.state.isShow}
+                                    onChange={
+                                        (e)=>{ this.setState({password: e.target.value })}
+                                    }
+                                />
+                                <img src={imgShowPass} onClick={
+                                    ()=>{
+                                        if(this.state.isShow === 'password'){
+                                            this.setState({isShow:"text"})
+                                        }else{
+                                            this.setState({isShow:'password'})
+                                        }
+                                    }
+                                    }/>
+                            </div>
                         </div>
                         <div className="bt_container_controll-Dash">
-                            <div className="bt_control-Dash" onClick={()=>{this.isValid(str)}}>Add</div>
+                            <div className="bt_control-Dash" onClick={()=>{this.isValid(id)}}>Add</div>
                             <div className="bt_control-Dash" onClick={()=>{this.props.isVisible(false)}}>Cancel</div>
                         </div>
                     </form>
@@ -66,12 +90,11 @@ class Dashboard extends Component {
         }
     }
     render(){
-        console.log(this.props.card);
         return(
             <div>
                 <div className="dashboard_container-Dash">
                     {this.props.card.map(index=>{
-                        return <Card key={index} desciption={index.description} password={index.password}/>
+                        return <Card key={index} desciption={index.description} password={index.password} id={index.id}/>
                     })}
                     <div className="bt_add-Dash" onClick={()=>{this.props.isVisible(true)}}>+</div>
                 </div>

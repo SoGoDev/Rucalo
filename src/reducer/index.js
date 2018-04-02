@@ -14,6 +14,12 @@ function cards (state = initialState,action){
     switch (action.type){
         case 'ADD_CARD': 
             return Object.assign({},state,state.card.push(action.info));
+        case 'UPDATE_CARD':
+            return Object.assign({},state,state.card.forEach(index=>{
+                if(action.id === index.id){
+                    index.password = action.password; 
+                }
+            }))
         default:
             return state
     }
