@@ -59,7 +59,7 @@ class Auth extends Component{
                     </div>
                     <div className="controll_panel-Auth">
                         <div className="controll_bt-Auth" onClick={this.accessUser}>Log In</div>
-                        <div className="controll_bt-Auth" onClick={()=>{this.props.history.push('/registration')}}>Sign Up</div>
+                        <div className="controll_bt-Auth" onClick={()=>{this.props.history.push('/reg')}}>Sign Up</div>
                     </div>
                 </form>
                 {this.showToast()}
