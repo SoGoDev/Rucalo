@@ -1,5 +1,10 @@
 .light-theme{
-    .text {
-        color: #d5e822;
+    .button-contained{
+        background-color: #27a518;
+        color: white;
+
+        &:hover {
+            background-color: #79ca30;
+        }
     }
 }

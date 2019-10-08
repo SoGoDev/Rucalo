@@ -12,6 +12,9 @@ class MongoRepository {
     return this.client.find(options)
   }
 
+  add(data) {
+    return this.client.add(data)
+  }
 
 }
 

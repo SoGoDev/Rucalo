@@ -5,11 +5,12 @@ import BaseComponent from "../../Fundamental/Base/BaseComponent";
 
 @STORE_CONNECT(['themeStore'])
 export class ThemeProvider extends BaseComponent {
+
   render() {
     return (
-    <div className={this.getStoreProp('themeStore.theme')}>
-      {this.props.children}
-    </div>
+      <div className={`theme-provider ${this.getStoreProp('themeStore.theme')}`}>
+        {this.props.children}
+      </div>
     )
   }
 }

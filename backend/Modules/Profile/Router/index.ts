@@ -1,9 +1,9 @@
 import express from 'express'
-import {login} from "../Controller";
+import {login, register} from "../Controller";
 
 const profileRouter = express.Router({mergeParams: true});
 
 profileRouter.post("/authorize", login);
+profileRouter.post("/register", register);
 
-
-module.exports = profileRouter;
+export default profileRouter

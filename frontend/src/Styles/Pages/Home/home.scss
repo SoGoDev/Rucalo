@@ -1,3 +1,20 @@
-.home-page{
-
+.home-page {
+  height: 100%;
+  display: flex;
 }
+.auth-block{
+  width: 340px;
+  display: flex;
+  padding: 16px;
+  flex-direction: column;
+  margin: auto;
+  .auth-input {
+    margin-bottom: 5px;
+  }
+
+  .control-buttons{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
