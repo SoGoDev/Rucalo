@@ -8,7 +8,7 @@ class MongoRepository {
     this.client = new DbClient({dbName, collection, url})
   }
 
-  get(options){
+  async get(options){
     return this.client.find(options)
   }
 

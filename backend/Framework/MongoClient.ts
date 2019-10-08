@@ -56,7 +56,7 @@ export class DbClient {
    * @param callback
    */
   private connectToMongo(callback) {
-    return MongoClient(this.compactDbUrl(), {useNewUrlParser: true}).connect(callback);
+    return MongoClient(this.compactDbUrl(), {useNewUrlParser: true, useUnifiedTopology: true}).connect(callback);
   }
 
   /**

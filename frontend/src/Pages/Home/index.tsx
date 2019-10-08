@@ -13,9 +13,23 @@ export default class Home extends BaseComponent {
   };
 
 
+  login() {
+    fetch(
+      "http://localhost:8000/authorize",
+      {
+        method: "POST",
+        mode:'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.state)
+      }
+    )
+  }
+
   onValueChange(field) {
     return function (value) {
-      this.setState({[field]: value})
+      this.setState({[field]: value.target.value})
     }.bind(this)
   }
 
@@ -25,6 +39,7 @@ export default class Home extends BaseComponent {
         <Button
           variant="contained"
           className="button-contained"
+          onClick={this.login.bind(this)}
         >
           SignIn
         </Button>
